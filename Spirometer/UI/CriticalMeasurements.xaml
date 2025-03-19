@@ -1,0 +1,58 @@
+﻿<Window x:Class="Spirometer.UI.CriticalMeasurements"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kritiske Målinger" Height="600" Width="800">
+
+    <Window.Resources>
+        <!-- Style for Column Headers -->
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="LightBlue"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <StackPanel HorizontalAlignment="Left" Width="770">
+            <!-- Overskrift for Kritiske Målinger -->
+            <TextBlock Text="Kritiske Målinger" FontSize="16" FontWeight="Bold" Margin="10,0,0,10" />
+
+            <!-- DataGrid til Kritiske Målinger -->
+            <DataGrid x:Name="CriticalDataGrid" AutoGenerateColumns="False" Margin="10" 
+                      SelectionChanged="CriticalDataGrid_SelectionChanged"
+                      AlternatingRowBackground="LightGray"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CPR Nummer" Binding="{Binding CPRNumber}" Width="*" />
+                    <DataGridTextColumn Header="FEV1 (L)" Binding="{Binding FEV1}" Width="*" />
+                    <DataGridTextColumn Header="FVC (L)" Binding="{Binding FVC}" Width="*" />
+                    <DataGridTextColumn Header="Ratio (%)" Binding="{Binding Ratio}" Width="*" />
+                    <DataGridTextColumn Header="Dato" Binding="{Binding Date, StringFormat={}{0:dd-MM-yyyy HH:mm}}" Width="*" />
+                    <DataGridTemplateColumn Header="Handling" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Markér som set" Click="MarkAsSeen_Click" Tag="{Binding Id}" Background="#5A002C" Foreground="White" FontWeight="Bold" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Overskrift for Detaljerede Målinger -->
+            <TextBlock Text="Detaljerede Målinger for valgt patient" FontSize="16" FontWeight="Bold" Margin="10,20,0,10" />
+
+            <!-- DataGrid til Detaljerede Målinger -->
+            <DataGrid x:Name="DetailedMeasurementGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="10"
+                      AlternatingRowBackground="LightGray"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CPR Nummer" Binding="{Binding CPRNumber}" Width="*" />
+                    <DataGridTextColumn Header="FEV1 (L)" Binding="{Binding FEV1}" Width="*" />
+                    <DataGridTextColumn Header="FVC (L)" Binding="{Binding FVC}" Width="*" />
+                    <DataGridTextColumn Header="Ratio(%)" Binding="{Binding Ratio}" Width="*" />
+                    <DataGridTextColumn Header="Dato" Binding="{Binding Date, StringFormat={}{0:dd-MM-yyyy HH:mm}}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>
